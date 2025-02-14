@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './index.css';
+import { FaShoppingCart, FaChartLine, FaMobile, FaServer } from 'react-icons/fa';
 
 function App() {
   const [time, setTime] = useState(new Date());
@@ -14,6 +15,13 @@ function App() {
     surface: '#1e293b',
     text: '#f8fafc'
   });
+
+  const projectIcons = {
+    1: { icon: FaShoppingCart, color: '#22c55e', bg: '#dcfce7' },  // E-Commerce
+    2: { icon: FaChartLine, color: '#3b82f6', bg: '#dbeafe' },     // Analytics
+    3: { icon: FaMobile, color: '#f59e0b', bg: '#fef3c7' },        // Mobile App
+    4: { icon: FaServer, color: '#ef4444', bg: '#fee2e2' }         // API Gateway
+  };
 
   useEffect(() => {
     const timer = setInterval(() => setTime(new Date()), 1000);
@@ -276,11 +284,13 @@ function App() {
   const handleProjectClick = (project) => {
     openModal( 
       <div className="project-modal-content">
-        <img 
-          src={`https://picsum.photos/800/400?random=${project.id}`}
-          alt={project.title}
-          className="project-modal-image"
-        />
+        <div className="project-modal-icon-header" style={{ background: projectIcons[project.id].bg }}>
+          {React.createElement(projectIcons[project.id].icon, { 
+            size: 48, 
+            color: projectIcons[project.id].color,
+            className: "project-icon"
+          })}
+        </div>
         <div className="project-modal-header">
           <h3 className="project-modal-title">{project.title}</h3>
           <span className="project-modal-timeline">{project.timeline}</span>
@@ -388,8 +398,8 @@ function App() {
     );
   };
 
-  const openModal = (title, content) => {
-    setModalContent({ title, content });
+  const openModal = (content) => {
+    setModalContent({ content });
     setIsModalOpen(true);
   };
 
@@ -428,75 +438,75 @@ function App() {
                 <div className="stat-value">10+</div>
                 <div className="stat-label">Projects</div>
               </div>
-               <div 
-                  className="highlight-item clickable"
-                  onClick={() => openModal(
-                    <div className="work-status-modal-content">
-                      <h2 className="work-status-modal-title">Open to Work</h2>
-                      <div className="work-status-modal-details">
-                        <div className="work-status-modal-section">
-                          <h3>Looking For</h3>
-                          <ul className="position-list">
-                            <li>Frontend Developer</li>
-                            <li>Full Stack Developer</li>
-                            <li>React Developer</li>
-                            <li>JavaScript Developer</li>
-                          </ul>
-                        </div>
+              <div 
+                className="highlight-item clickable"
+                onClick={() => openModal(
+                  <div className="work-status-modal-content">
+                    <h2 className="work-status-modal-title">Open to Work</h2>
+                    <div className="work-status-modal-details">
+                      <div className="work-status-modal-section">
+                        <h3>Looking For</h3>
+                        <ul className="position-list">
+                          <li>Frontend Developer</li>
+                          <li>Full Stack Developer</li>
+                          <li>React Developer</li>
+                          <li>JavaScript Developer</li>
+                        </ul>
+                      </div>
 
-                        <div className="work-status-modal-section">
-                          <h3>Skills</h3>
-                          <div className="skills-grid">
-                            {skills.map((skill, index) => (
-                              <div key={index} className="skill-item-modal">
-                                <span className="skill-name">{skill.name}</span>
-                                <div className="skill-bar-modal">
-                                  <div 
-                                    className="skill-progress-modal"
-                                    style={{ width: `${skill.level}%` }}
-                                  />
-                                </div>
+                      <div className="work-status-modal-section">
+                        <h3>Skills</h3>
+                        <div className="skills-grid">
+                          {skills.map((skill, index) => (
+                            <div key={index} className="skill-item-modal">
+                              <span className="skill-name">{skill.name}</span>
+                              <div className="skill-bar-modal">
+                                <div 
+                                  className="skill-progress-modal"
+                                  style={{ width: `${skill.level}%` }}
+                                />
                               </div>
-                            ))}
-                          </div>
+                            </div>
+                          ))}
                         </div>
+                      </div>
 
-                        <div className="work-status-modal-section">
-                          <h3>Preferences</h3>
-                          <div className="preferences-list">
-                            <div className="preference-item">
-                              <span className="preference-icon">🌍 </span>
-                              <span>Remote / Hybrid / On-site</span>
-                            </div>
-                            <div className="preference-item">
-                              <span className="preference-icon">📍</span>
-                              <span>Oslo, Norway</span>
-                            </div>
-                            <div className="preference-item">
-                              <span className="preference-icon">⏰</span>
-                              <span>Full-time / Part-time</span>
-                            </div>
+                      <div className="work-status-modal-section">
+                        <h3>Preferences</h3>
+                        <div className="preferences-list">
+                          <div className="preference-item">
+                            <span className="preference-icon">🌍 </span>
+                            <span>Remote / Hybrid / On-site</span>
                           </div>
-                        </div>
-
-                        <div className="work-status-modal-section">
-                          <h3>Contact</h3>
-                          <div className="contact-info">
-                            <a href="mailto:your.email@example.com" className="contact-button">
-                              Send Email
-                            </a>
-                            <a href="https://linkedin.com/in/yourusername" target="_blank" rel="noopener noreferrer" className="contact-button">
-                              LinkedIn Profile
-                            </a>
+                          <div className="preference-item">
+                            <span className="preference-icon">📍</span>
+                            <span>Oslo, Norway</span>
+                          </div>
+                          <div className="preference-item">
+                            <span className="preference-icon">⏰</span>
+                            <span>Full-time / Part-time</span>
                           </div>
                         </div>
                       </div>
+
+                      <div className="work-status-modal-section">
+                        <h3>Contact</h3>
+                        <div className="contact-info">
+                          <a href="mailto:your.email@example.com" className="contact-button">
+                            Send Email
+                          </a>
+                          <a href="https://linkedin.com/in/yourusername" target="_blank" rel="noopener noreferrer" className="contact-button">
+                            LinkedIn Profile
+                          </a>
+                        </div>
+                      </div>
                     </div>
-                  )}
-                >
-                  <span className="highlight-icon">🌍</span>
-                  <span>Open to Work</span>
-                </div>
+                  </div>
+                )}
+              >
+                <span className="highlight-icon">🌍</span>
+                <span>Open to Work</span>
+              </div>
             </div>
           </div>
 
@@ -609,7 +619,6 @@ function App() {
                   <span className="highlight-icon">🏋️‍♂️</span>
                   <span>Personal Trainer from AFPT</span>
                 </div>
-               
               </div>
               <button 
                 className="about-cta"
@@ -663,11 +672,13 @@ function App() {
                   className="project-card"
                   onClick={() => handleProjectClick(project)}
                 >
-                  <img 
-                    src={`https://picsum.photos/400/200?random=${project.id}`}
-                    alt={project.title}
-                    className="project-image"
-                  />
+                  <div className="project-icon-container" style={{ background: projectIcons[project.id].bg }}>
+                    {React.createElement(projectIcons[project.id].icon, { 
+                      size: 32, 
+                      color: projectIcons[project.id].color,
+                      className: "project-icon"
+                    })}
+                  </div>
                   <div className="project-info">
                     <h4 className="project-title">{project.title}</h4>
                     <p className="project-description">{project.shortDescription}</p>
@@ -820,10 +831,7 @@ function App() {
             >
               ×
             </button>
-            <h3 className="modal-title">{modalContent.title}</h3>
-            <div className="modal-body">
-              {modalContent.content}
-            </div>
+            { modalContent.content}
           </div>
         </div>
       )}
